@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    tools {
+        nodejs "node"
+    }
+    stages {
+        stage('Cloning Repo') {
+            steps {
+                script {
+                    // Example of git clone
+                    git branch: 'master', url: "https://github.com/Poisonlocket/m324-jenkins-ci-cd.git"
+                }
+            }
+        }
+        stage('Install jest-cli') {
+            steps {
+                sh "npm install jest-cli -g"
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+        stage('Test App') {
+            steps {
+                sh "npm test"
+            }
+        }
+    }
+}
